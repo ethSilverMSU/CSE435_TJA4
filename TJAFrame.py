@@ -169,7 +169,8 @@ class MainPanel(wx.Panel):
         self.TJAIsActive = not self.TJAIsActive
         print(self.TJAIsActive)
 
-
+    def CalculateDistance(self):
+        self.TargetDistance = self.TargetCarSpeed - self.CarSpeed
 
 if __name__ == '__main__':
 
