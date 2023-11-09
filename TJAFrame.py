@@ -176,6 +176,12 @@ class MainPanel(wx.Panel):
         self.TJAIsActive = value
         print(self.TJAIsActive)
 
+    def ActivateTJA(self):
+        self.SetTJAStatus(True)
+
+    def DeactivateTJA(self):
+        self.SetTJAStatus(False)
+
     def CalculateDistance(self):
         self.TargetDistance = self.TargetCarSpeed - self.CarSpeed
 
