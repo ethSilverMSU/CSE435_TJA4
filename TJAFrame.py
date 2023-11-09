@@ -65,6 +65,8 @@ class MainPanel(wx.Panel):
         self.OffColor = wx.Colour(255,0,0)
         self.OnColor = wx.Colour(0,255,0)
 
+
+
         self.MyCarSpeed = 25
         self.TargetCarSpeed = 20
         self.TargetDistance = 25
@@ -76,6 +78,8 @@ class MainPanel(wx.Panel):
 
     def GameLayout(self):
         self.FullPage = wx.BoxSizer(wx.VERTICAL)
+
+        self.StartButtonSizer = wx.BoxSizer(wx.HORIZONTAL)
 
         # sizer for top area where car display will be
         self.TopArea = wx.BoxSizer(wx.HORIZONTAL)
@@ -106,13 +110,25 @@ class MainPanel(wx.Panel):
         self.Stats()
         self.Bottom()
         self.UpdateLabels()
+        self.InitStartButton()
 
         # Add top middle, and bottom sizers to full page
-        self.FullPage.Add(self.TopArea, 1, wx.CENTER | wx.EXPAND)
-        self.FullPage.Add(self.MidArea, 1, wx.CENTER | wx.EXPAND)
-        self.FullPage.Add(self.ButtonArea, 1, wx.CENTER| wx.EXPAND)
+        self.FullPage.Add(self.StartButtonSizer, 1, wx.CENTER | wx.EXPAND)
+        self.FullPage.Add(self.TopArea, 2, wx.CENTER | wx.EXPAND)
+        self.FullPage.Add(self.MidArea, 2, wx.CENTER | wx.EXPAND)
+        self.FullPage.Add(self.ButtonArea, 2, wx.CENTER| wx.EXPAND)
 
         self.SetSizer(self.FullPage)
+
+
+    def InitStartButton(self):
+        self.StartButton = wx.Button(self, label="START SIMULATION", size=(100,50))
+        self.StartButton.SetFont(self.MainFont)
+        self.StartButtonSizer.Add(self.StartButton, 1, wx.ALL | wx.CENTER, 5)
+        self.Bind(wx.EVT_BUTTON, self.OnStart)
+
+    def OnStart(self, event):
+        pass
 
 
     def Stats(self):
@@ -191,16 +207,7 @@ class MainPanel(wx.Panel):
 
         self.UpdateLabels()
 
-
-        if self.TJAIsActive:
-            self.ActivateButton.SetLabel("DEACTIVATE TJA")
-
-        else:
-            self.ActivateButton.SetLabel("ACTIVATE TJA")
-
     def UpdateLabels(self):
-
-        print(self.TJAIsActive)
 
         if self.TJAIsActive:
             self.YourSpeed.SetForegroundColour(self.OnColor)
