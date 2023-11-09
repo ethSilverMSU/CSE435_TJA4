@@ -147,6 +147,10 @@ class MainPanel(wx.Panel):
         self.TargetCarSpeed += value
         self.CarSpeed.SetLabel("Tracking car's speed is: {}".format(self.TargetCarSpeed))
 
+    def TJAStatusSwitch(self):
+        self.TJAIsActive = not self.TJAIsActive
+        print(self.TJAIsActive)
+
 
 
 if __name__ == '__main__':
