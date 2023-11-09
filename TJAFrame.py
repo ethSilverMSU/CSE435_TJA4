@@ -121,12 +121,24 @@ class MainPanel(wx.Panel):
         self.YourSpeed = wx.StaticText(self, label="Your speed is: {}".format(self.MyCarSpeed))
         self.CarSpeed = wx.StaticText(self, label="Tracking car's speed is: {}".format(self.TargetCarSpeed))
         self.ClosingRateText = wx.StaticText(self, label="The closing rate is: {}".format(self.ClosingRate))
+        self.TimeText = wx.StaticText(self, label="The current time is: {}".format(self.CurrentTime))
 
+        # Set our font to text
         self.YourSpeed.SetFont(self.MainFont)
         self.ClosingRateText.SetFont(self.MainFont)
         self.CarSpeed.SetFont(self.MainFont)
+        self.TimeText.SetFont(self.MainFont)
 
+        # Add the activate TJA button
+        self.ActivateButton = wx.Button(self, label="ACTIVATE TJA", size=(100,50))
+        self.ActivateButton.SetFont(self.MainFont)
+        self.ActivateButton.Bind(wx.EVT_BUTTON, self.OnActivateTJA)
+
+
+        # Add text to sizer
         self.MidArea.Add(self.YourSpeed, 1, wx.ALL | wx.CENTER, 30)
+        self.MidArea.Add(self.TimeText, 1, wx.ALL | wx.CENTER, 30)
+        self.MidArea.Add(self.ActivateButton, 1, wx.ALL | wx.CENTER, 10)
         self.MidArea.Add(self.ClosingRateText, 1, wx.ALL | wx.CENTER, 30)
         self.MidArea.Add(self.CarSpeed, 1, wx.ALL | wx.CENTER, 30)
 
@@ -166,9 +178,16 @@ class MainPanel(wx.Panel):
     def OnIncreaseTargetSpeed(self, event):
         self.UpdateTargetText(1)
 
+    def OnActivateTJA(self, event):
+        self.SetTJAStatus(True)
+
+        if self.TJAIsActive:
+            pass
+
     def UpdateMyText(self, value):
         self.MyCarSpeed += value
         self.YourSpeed.SetLabel("Your speed is: {}".format(self.MyCarSpeed))
+
         if self.MyCarSpeed > 40 or self.MyCarSpeed < 0:
             self.SetTJAStatus(False)
         self.UpdateClosingRateText()
