@@ -217,12 +217,6 @@ class MainPanel(wx.Panel):
         else:
             self.ActivateButton.SetLabel("ACTIVATE TJA")
 
-    def ActivateTJA(self):
-        self.SetTJAStatus(True)
-
-    def DeactivateTJA(self):
-        self.SetTJAStatus(False)
-
     def CalculateDistance(self):
         self.TargetDistance += self.TargetCarSpeed - self.CarSpeed
 
