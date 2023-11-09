@@ -183,10 +183,12 @@ class MainPanel(wx.Panel):
         if self.TJAIsActive:
             self.SetTJAStatus(False)
         else:
-            self.SetTJAStatus(True)
+            if self.MyCarSpeed <= 40:
+                self.SetTJAStatus(True)
 
         if self.TJAIsActive:
             self.ActivateButton.SetLabel("DEACTIVATE TJA")
+
         else:
             self.ActivateButton.SetLabel("ACTIVATE TJA")
 
@@ -210,7 +212,10 @@ class MainPanel(wx.Panel):
 
     def SetTJAStatus(self, value):
         self.TJAIsActive = value
-        print(self.TJAIsActive)
+        if value:
+            self.ActivateButton.SetLabel("DEACTIVATE TJA")
+        else:
+            self.ActivateButton.SetLabel("ACTIVATE TJA")
 
     def ActivateTJA(self):
         self.SetTJAStatus(True)
