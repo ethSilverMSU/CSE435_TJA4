@@ -132,21 +132,26 @@ class MainPanel(wx.Panel):
 
     def Bottom(self):
 
-        self.DecreaseMySpeed = wx.Button(self, label="Decrease my speed 1pmh", size=(200,50))
-        self.DecreaseMySpeed.Bind(wx.EVT_BUTTON, self.OnDecreaseMySpeed)
-        self.ButtonArea.Add(self.DecreaseMySpeed, 1, wx.ALL | wx.CENTER, 20)
-
-        self.DecreaseTargetSpeed = wx.Button(self, label="Decrease target speed 1mph", size=(200,50))
-        self.DecreaseTargetSpeed.Bind(wx.EVT_BUTTON, self.OnDecreaseTargetSpeed)
-        self.ButtonArea.Add(self.DecreaseTargetSpeed, 1, wx.ALL | wx.CENTER, 20)
-
-        self.IncreaseMySpeed = wx.Button(self, label="Increase my speed 1mph", size=(200,50))
+        self.IncreaseMySpeed = wx.Button(self, label="Increase my speed 1mph", size=(200, 50))
+        self.IncreaseMySpeed.SetFont(self.MainFont)
         self.IncreaseMySpeed.Bind(wx.EVT_BUTTON, self.OnIncreaseMySpeed)
         self.ButtonArea.Add(self.IncreaseMySpeed, 1, wx.ALL | wx.CENTER, 20)
 
-        self.IncreaseTargetSpeed = wx.Button(self, label="Increase my speed 1mph", size=(200, 50))
+        self.DecreaseMySpeed = wx.Button(self, label="Decrease my speed 1mph", size=(200,50))
+        self.DecreaseMySpeed.SetFont(self.MainFont)
+        self.DecreaseMySpeed.Bind(wx.EVT_BUTTON, self.OnDecreaseMySpeed)
+        self.ButtonArea.Add(self.DecreaseMySpeed, 1, wx.ALL | wx.CENTER, 20)
+
+        self.IncreaseTargetSpeed = wx.Button(self, label="Increase target speed 1mph", size=(200, 50))
+        self.IncreaseTargetSpeed.SetFont(self.MainFont)
         self.IncreaseTargetSpeed.Bind(wx.EVT_BUTTON, self.OnIncreaseTargetSpeed)
         self.ButtonArea.Add(self.IncreaseTargetSpeed, 1, wx.ALL | wx.CENTER, 20)
+
+        self.DecreaseTargetSpeed = wx.Button(self, label="Decrease target speed 1mph", size=(200,50))
+        self.DecreaseTargetSpeed.SetFont(self.MainFont)
+        self.DecreaseTargetSpeed.Bind(wx.EVT_BUTTON, self.OnDecreaseTargetSpeed)
+        self.ButtonArea.Add(self.DecreaseTargetSpeed, 1, wx.ALL | wx.CENTER, 20)
+
 
 
     def OnDecreaseMySpeed(self, event):
