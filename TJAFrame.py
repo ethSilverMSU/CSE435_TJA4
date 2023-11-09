@@ -156,12 +156,15 @@ class MainPanel(wx.Panel):
         self.MyCarSpeed += value
         self.YourSpeed.SetLabel("Your speed is: {}".format(self.MyCarSpeed))
 
+        if self.MyCarSpeed > 40 or self.MyCarSpeed < 0:
+            self.SetTJAStatus(False)
+
     def UpdateTargetText(self, value):
         self.TargetCarSpeed += value
         self.CarSpeed.SetLabel("Tracking car's speed is: {}".format(self.TargetCarSpeed))
 
-    def TJAStatusSwitch(self):
-        self.TJAIsActive = not self.TJAIsActive
+    def SetTJAStatus(self, value):
+        self.TJAIsActive = value
         print(self.TJAIsActive)
 
 
