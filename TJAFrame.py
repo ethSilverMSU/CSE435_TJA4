@@ -8,6 +8,8 @@ pip install -U wxPython
 
 import wx
 
+import time
+
 class MainFrame(wx.Frame):
     """
     Main frame
@@ -73,6 +75,7 @@ class MainPanel(wx.Panel):
         self.ClosingRate = self.MyCarSpeed - self.TargetCarSpeed
         self.CurrentTime = 0
         self.TJAIsActive = False
+        self.isStarted = False
 
         self.GameLayout()
 
@@ -256,10 +259,16 @@ class MainPanel(wx.Panel):
 
 
     def StartTimer(self):
-        return
+        while self.isStarted:
+            time.sleep(1)
+            print("Running")
 
-    def StartSimulation(self):
+    def SimulationButton(self):
         self.StartTimer()
+        if self.isStarted:
+            self.isStarted = False
+        else:
+            self.isStarted = True
 
 if __name__ == '__main__':
 
