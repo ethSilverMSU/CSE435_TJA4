@@ -61,10 +61,12 @@ class MainPanel(wx.Panel):
 
         wid, hei = wx.DisplaySize()
         self.SetBackgroundColour((100,100,100))
+        self.MainFont = wx.Font(pointSize=20, family=wx.FONTFAMILY_ROMAN, style=wx.RAISED_BORDER, weight=90)
 
         self.MyCarSpeed = 25
         self.TargetCarSpeed = 20
         self.TargetDistance = 25
+        self.ClosingRate = 0
         self.TJAIsActive = False
 
         self.GameLayout()
@@ -88,9 +90,13 @@ class MainPanel(wx.Panel):
         self.RedCarDisplay = wx.StaticBitmap(self, wx.ID_ANY, wx.BitmapFromImage(redcar))
         self.PinkCarDisplay = wx.StaticBitmap(self, wx.ID_ANY, wx.BitmapFromImage(pinkcar))
 
+        self.DistanceText = wx.StaticText(self, label="Distance: {}".format(self.TargetDistance))
+        self.DistanceText.SetFont(self.MainFont)
+
 
         # Add the car images to the top sizer
         self.TopArea.Add(self.RedCarDisplay, 1, wx.ALL | wx.CENTER, 20)
+        self.TopArea.Add(self.DistanceText, 0, wx.ALL | wx.CENTER, 20)
         self.TopArea.Add(self.PinkCarDisplay, 1, wx.ALL | wx.CENTER, 20)
 
         # Initialize stats and button
@@ -110,15 +116,18 @@ class MainPanel(wx.Panel):
         Initializes the info in the middle sizer
         :return:
         """
-        MainFont = wx.Font(pointSize=20, family=wx.FONTFAMILY_ROMAN, style=wx.RAISED_BORDER, weight=90)
 
         # Text variables - changed using SetLabel
         self.YourSpeed = wx.StaticText(self, label="Your speed is: {}".format(self.MyCarSpeed))
         self.CarSpeed = wx.StaticText(self, label="Tracking car's speed is: {}".format(self.TargetCarSpeed))
-        self.YourSpeed.SetFont(MainFont)
-        self.CarSpeed.SetFont(MainFont)
+        self.ClosingRateText = wx.StaticText(self, label="The closing rate is: {}".format(self.ClosingRate))
+
+        self.YourSpeed.SetFont(self.MainFont)
+        self.ClosingRateText.SetFont(self.MainFont)
+        self.CarSpeed.SetFont(self.MainFont)
 
         self.MidArea.Add(self.YourSpeed, 1, wx.ALL | wx.CENTER, 30)
+        self.MidArea.Add(self.ClosingRateText, 1, wx.ALL | wx.CENTER, 30)
         self.MidArea.Add(self.CarSpeed, 1, wx.ALL | wx.CENTER, 30)
 
     def Bottom(self):
@@ -167,7 +176,8 @@ class MainPanel(wx.Panel):
         self.TJAIsActive = value
         print(self.TJAIsActive)
 
-
+    def CalculateDistance(self):
+        self.TargetDistance = self.TargetCarSpeed - self.CarSpeed
 
 if __name__ == '__main__':
 
