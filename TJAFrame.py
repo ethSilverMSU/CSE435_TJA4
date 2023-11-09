@@ -42,8 +42,6 @@ class MainFrame(wx.Frame):
 
         Close = FileMenu.Append(wx.ID_ANY, "Close")
 
-
-
         MenuBar.Append(FileMenu, "&File")
 
         self.Bind(wx.EVT_MENU, self.OnClose, Close)
@@ -63,6 +61,9 @@ class MainPanel(wx.Panel):
 
         wid, hei = wx.DisplaySize()
         self.SetBackgroundColour((100,100,100))
+
+        self.MyCarSpeed = 0
+        self.TargetCarSpeed = 0
 
         self.GameLayout()
 
@@ -90,9 +91,9 @@ class MainPanel(wx.Panel):
         self.TopArea.Add(self.RedCarDisplay, 1, wx.ALL | wx.CENTER, 20)
         self.TopArea.Add(self.PinkCarDisplay, 1, wx.ALL | wx.CENTER, 20)
 
+        # Initialize stats and button
         self.Stats()
         self.Bottom()
-
 
         # Add top middle, and bottom sizers to full page
         self.FullPage.Add(self.TopArea, 1, wx.CENTER | wx.EXPAND)
@@ -107,28 +108,42 @@ class MainPanel(wx.Panel):
         Initializes the info in the middle sizer
         :return:
         """
-
         MainFont = wx.Font(pointSize=20, family=wx.FONTFAMILY_ROMAN, style=wx.RAISED_BORDER, weight=90)
 
         # Text variables - changed using SetLabel
-        self.YourSpeed = wx.StaticText(self, label="Your speed is: ")
-        self.CarSpeed = wx.StaticText(self, label="Tracking car's speed is: ")
+        self.YourSpeed = wx.StaticText(self, label="Your speed is: {}".format(self.MyCarSpeed))
+        self.CarSpeed = wx.StaticText(self, label="Tracking car's speed is: {}".format(self.TargetCarSpeed))
         self.YourSpeed.SetFont(MainFont)
         self.CarSpeed.SetFont(MainFont)
 
         self.MidArea.Add(self.YourSpeed, 1, wx.ALL | wx.CENTER, 30)
         self.MidArea.Add(self.CarSpeed, 1, wx.ALL | wx.CENTER, 30)
 
-
     def Bottom(self):
 
-        self.DecreaseSpeed = wx.Button(self, label="Decrease speed 5pmh", size=(200,50))
-        self.DecreaseSpeed.Bind(wx.EVT_BUTTON, self.OnDecreaseSpeed)
-        self.ButtonArea.Add(self.DecreaseSpeed, 0, wx.ALL | wx.CENTER, 20)
+        self.DecreaseMySpeed = wx.Button(self, label="Decrease my speed 5pmh", size=(200,50))
+        self.DecreaseMySpeed.Bind(wx.EVT_BUTTON, self.OnDecreaseMySpeed)
+        self.ButtonArea.Add(self.DecreaseMySpeed, 1, wx.ALL | wx.CENTER, 20)
+
+        self.DecreaseTargetSpeed = wx.Button(self, label="Decrease target speed 5mph", size=(200,50))
+        self.DecreaseTargetSpeed.Bind(wx.EVT_BUTTON, self.OnDecreaseTargetSpeed)
+        self.ButtonArea.Add(self.DecreaseTargetSpeed, 1, wx.ALL | wx.CENTER, 20)
 
 
-    def OnDecreaseSpeed(self, event):
+    def OnDecreaseMySpeed(self, event):
         print("Button Pressed")
+        self.UpdateMyText(5)
+
+    def OnDecreaseTargetSpeed(self, event):
+        self.UpdateTargetText(5)
+
+    def UpdateMyText(self, value):
+        self.MyCarSpeed += value
+        self.YourSpeed.SetLabel("Your speed is: {}".format(self.MyCarSpeed))
+
+    def UpdateTargetText(self, value):
+        self.TargetCarSpeed += value
+        self.CarSpeed.SetLabel("Tracking car's speed is: {}".format(self.TargetCarSpeed))
 
 
 
