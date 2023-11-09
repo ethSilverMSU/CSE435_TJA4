@@ -65,6 +65,7 @@ class MainPanel(wx.Panel):
         self.MyCarSpeed = 25
         self.TargetCarSpeed = 20
         self.TargetDistance = 25
+        self.ClosingRate = 0
         self.TJAIsActive = False
 
         self.GameLayout()
@@ -115,10 +116,14 @@ class MainPanel(wx.Panel):
         # Text variables - changed using SetLabel
         self.YourSpeed = wx.StaticText(self, label="Your speed is: {}".format(self.MyCarSpeed))
         self.CarSpeed = wx.StaticText(self, label="Tracking car's speed is: {}".format(self.TargetCarSpeed))
+        self.ClosingRateText = wx.StaticText(self, label="The closing rate is: {}".format(self.ClosingRate))
+
         self.YourSpeed.SetFont(MainFont)
+        self.ClosingRateText.SetFont(MainFont)
         self.CarSpeed.SetFont(MainFont)
 
         self.MidArea.Add(self.YourSpeed, 1, wx.ALL | wx.CENTER, 30)
+        self.MidArea.Add(self.ClosingRateText, 1, wx.ALL | wx.CENTER, 30)
         self.MidArea.Add(self.CarSpeed, 1, wx.ALL | wx.CENTER, 30)
 
     def Bottom(self):
