@@ -67,6 +67,7 @@ class MainPanel(wx.Panel):
         self.TargetCarSpeed = 20
         self.TargetDistance = 25
         self.ClosingRate = self.MyCarSpeed - self.TargetCarSpeed
+        self.CurrentTime = 0
         self.TJAIsActive = False
 
         self.GameLayout()
@@ -179,10 +180,15 @@ class MainPanel(wx.Panel):
         self.UpdateTargetText(1)
 
     def OnActivateTJA(self, event):
-        self.SetTJAStatus(True)
+        if self.TJAIsActive:
+            self.SetTJAStatus(False)
+        else:
+            self.SetTJAStatus(True)
 
         if self.TJAIsActive:
-            pass
+            self.ActivateButton.SetLabel("DEACTIVATE TJA")
+        else:
+            self.ActivateButton.SetLabel("ACTIVATE TJA")
 
     def UpdateMyText(self, value):
         self.MyCarSpeed += value
