@@ -62,6 +62,8 @@ class MainPanel(wx.Panel):
         wid, hei = wx.DisplaySize()
         self.SetBackgroundColour((100,100,100))
         self.MainFont = wx.Font(pointSize=20, family=wx.FONTFAMILY_ROMAN, style=wx.RAISED_BORDER, weight=90)
+        self.OffColor = wx.Colour(255,0,0)
+        self.OnColor = wx.Colour(0,255,0)
 
         self.MyCarSpeed = 25
         self.TargetCarSpeed = 20
@@ -103,6 +105,7 @@ class MainPanel(wx.Panel):
         # Initialize stats and button
         self.Stats()
         self.Bottom()
+        self.UpdateLabels()
 
         # Add top middle, and bottom sizers to full page
         self.FullPage.Add(self.TopArea, 1, wx.CENTER | wx.EXPAND)
@@ -186,11 +189,30 @@ class MainPanel(wx.Panel):
             if self.MyCarSpeed <= 40:
                 self.SetTJAStatus(True)
 
+        self.UpdateLabels()
+
+
         if self.TJAIsActive:
             self.ActivateButton.SetLabel("DEACTIVATE TJA")
 
         else:
             self.ActivateButton.SetLabel("ACTIVATE TJA")
+
+    def UpdateLabels(self):
+
+        print(self.TJAIsActive)
+
+        if self.TJAIsActive:
+            self.YourSpeed.SetForegroundColour(self.OnColor)
+            self.CarSpeed.SetForegroundColour(self.OnColor)
+            self.ClosingRateText.SetForegroundColour(self.OnColor)
+            self.TimeText.SetForegroundColour(self.OnColor)
+        else:
+            self.YourSpeed.SetForegroundColour(self.OffColor)
+            self.CarSpeed.SetForegroundColour(self.OffColor)
+            self.ClosingRateText.SetForegroundColour(self.OffColor)
+            self.TimeText.SetForegroundColour(self.OffColor)
+        self.Refresh()
 
     def UpdateMyText(self, value):
         self.MyCarSpeed += value
@@ -216,12 +238,6 @@ class MainPanel(wx.Panel):
             self.ActivateButton.SetLabel("DEACTIVATE TJA")
         else:
             self.ActivateButton.SetLabel("ACTIVATE TJA")
-
-    def ActivateTJA(self):
-        self.SetTJAStatus(True)
-
-    def DeactivateTJA(self):
-        self.SetTJAStatus(False)
 
     def CalculateDistance(self):
         self.TargetDistance += self.TargetCarSpeed - self.CarSpeed
