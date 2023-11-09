@@ -176,6 +176,9 @@ class MainPanel(wx.Panel):
     def CalculateDistance(self):
         self.TargetDistance = self.TargetCarSpeed - self.CarSpeed
 
+    def IncrementTime(self):
+        self.CalculateDistance(self)
+
 if __name__ == '__main__':
 
     app = wx.App()
