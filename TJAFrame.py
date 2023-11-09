@@ -64,6 +64,8 @@ class MainPanel(wx.Panel):
 
         self.MyCarSpeed = 0
         self.TargetCarSpeed = 0
+        self.TargetDistance = 25
+        self.TJAIsActive = False
 
         self.GameLayout()
 
