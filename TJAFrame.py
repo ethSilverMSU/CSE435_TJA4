@@ -62,8 +62,8 @@ class MainPanel(wx.Panel):
         wid, hei = wx.DisplaySize()
         self.SetBackgroundColour((100,100,100))
 
-        self.MyCarSpeed = 0
-        self.TargetCarSpeed = 0
+        self.MyCarSpeed = 25
+        self.TargetCarSpeed = 20
         self.TargetDistance = 25
         self.TJAIsActive = False
 
@@ -123,21 +123,34 @@ class MainPanel(wx.Panel):
 
     def Bottom(self):
 
-        self.DecreaseMySpeed = wx.Button(self, label="Decrease my speed 5pmh", size=(200,50))
+        self.DecreaseMySpeed = wx.Button(self, label="Decrease my speed 1pmh", size=(200,50))
         self.DecreaseMySpeed.Bind(wx.EVT_BUTTON, self.OnDecreaseMySpeed)
         self.ButtonArea.Add(self.DecreaseMySpeed, 1, wx.ALL | wx.CENTER, 20)
 
-        self.DecreaseTargetSpeed = wx.Button(self, label="Decrease target speed 5mph", size=(200,50))
+        self.DecreaseTargetSpeed = wx.Button(self, label="Decrease target speed 1mph", size=(200,50))
         self.DecreaseTargetSpeed.Bind(wx.EVT_BUTTON, self.OnDecreaseTargetSpeed)
         self.ButtonArea.Add(self.DecreaseTargetSpeed, 1, wx.ALL | wx.CENTER, 20)
 
+        self.IncreaseMySpeed = wx.Button(self, label="Increase my speed 1mph", size=(200,50))
+        self.IncreaseMySpeed.Bind(wx.EVT_BUTTON, self.OnIncreaseMySpeed)
+        self.ButtonArea.Add(self.IncreaseMySpeed, 1, wx.ALL | wx.CENTER, 20)
+
+        self.IncreaseTargetSpeed = wx.Button(self, label="Increase my speed 1mph", size=(200, 50))
+        self.IncreaseTargetSpeed.Bind(wx.EVT_BUTTON, self.OnIncreaseTargetSpeed)
+        self.ButtonArea.Add(self.IncreaseTargetSpeed, 1, wx.ALL | wx.CENTER, 20)
+
 
     def OnDecreaseMySpeed(self, event):
-        print("Button Pressed")
-        self.UpdateMyText(5)
+        self.UpdateMyText(-1)
 
     def OnDecreaseTargetSpeed(self, event):
-        self.UpdateTargetText(5)
+        self.UpdateTargetText(-1)
+
+    def OnIncreaseMySpeed(self, event):
+        self.UpdateMyText(1)
+
+    def OnIncreaseTargetSpeed(self, event):
+        self.UpdateTargetText(1)
 
     def UpdateMyText(self, value):
         self.MyCarSpeed += value
