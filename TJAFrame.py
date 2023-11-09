@@ -66,7 +66,7 @@ class MainPanel(wx.Panel):
         self.MyCarSpeed = 25
         self.TargetCarSpeed = 20
         self.TargetDistance = 25
-        self.ClosingRate = 0
+        self.ClosingRate = self.MyCarSpeed - self.TargetCarSpeed
         self.TJAIsActive = False
 
         self.GameLayout()
@@ -169,13 +169,19 @@ class MainPanel(wx.Panel):
     def UpdateMyText(self, value):
         self.MyCarSpeed += value
         self.YourSpeed.SetLabel("Your speed is: {}".format(self.MyCarSpeed))
-
         if self.MyCarSpeed > 40 or self.MyCarSpeed < 0:
             self.SetTJAStatus(False)
+        self.UpdateClosingRateText()
 
     def UpdateTargetText(self, value):
         self.TargetCarSpeed += value
         self.CarSpeed.SetLabel("Tracking car's speed is: {}".format(self.TargetCarSpeed))
+        self.UpdateClosingRateText()
+
+    def UpdateClosingRateText(self):
+        self.ClosingRate = self.MyCarSpeed - self.TargetCarSpeed
+        self.ClosingRateText.SetLabel("The closing rate is: {}".format(self.ClosingRate))
+
 
     def SetTJAStatus(self, value):
         self.TJAIsActive = value
@@ -188,7 +194,7 @@ class MainPanel(wx.Panel):
         self.SetTJAStatus(False)
 
     def CalculateDistance(self):
-        self.TargetDistance = self.TargetCarSpeed - self.CarSpeed
+        self.TargetDistance += self.TargetCarSpeed - self.CarSpeed
 
     def IncrementTime(self):
         self.CalculateDistance(self)
