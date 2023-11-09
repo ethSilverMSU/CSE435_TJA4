@@ -138,11 +138,11 @@ class MainPanel(wx.Panel):
         self.UpdateTargetText(5)
 
     def UpdateMyText(self, value):
-        self.MyCarSpeed += 5
+        self.MyCarSpeed += value
         self.YourSpeed.SetLabel("Your speed is: {}".format(self.MyCarSpeed))
 
     def UpdateTargetText(self, value):
-        self.TargetCarSpeed += 5
+        self.TargetCarSpeed += value
         self.CarSpeed.SetLabel("Tracking car's speed is: {}".format(self.TargetCarSpeed))
 
 
