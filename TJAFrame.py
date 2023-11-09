@@ -142,7 +142,7 @@ class MainPanel(wx.Panel):
         self.DecreaseMySpeed.Bind(wx.EVT_BUTTON, self.OnDecreaseMySpeed)
         self.ButtonArea.Add(self.DecreaseMySpeed, 1, wx.ALL | wx.CENTER, 20)
 
-        self.IncreaseTargetSpeed = wx.Button(self, label="Increase my speed 1mph", size=(200, 50))
+        self.IncreaseTargetSpeed = wx.Button(self, label="Increase target speed 1mph", size=(200, 50))
         self.IncreaseTargetSpeed.SetFont(self.MainFont)
         self.IncreaseTargetSpeed.Bind(wx.EVT_BUTTON, self.OnIncreaseTargetSpeed)
         self.ButtonArea.Add(self.IncreaseTargetSpeed, 1, wx.ALL | wx.CENTER, 20)
