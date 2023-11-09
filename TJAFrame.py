@@ -193,6 +193,13 @@ class MainPanel(wx.Panel):
     def IncrementTime(self):
         self.CalculateDistance(self)
 
+
+    def StartTimer(self):
+        return
+
+    def StartSimulation(self):
+        self.StartTimer()
+
 if __name__ == '__main__':
 
     app = wx.App()
