@@ -71,7 +71,7 @@ class MainPanel(wx.Panel):
 
         self.MyCarSpeed = 25
         self.TargetCarSpeed = 20
-        self.TargetDistance = 25
+        self.TargetDistance = 200
         self.ClosingRate = self.MyCarSpeed - self.TargetCarSpeed
         self.CurrentTime = 0
         self.TJAIsActive = False
@@ -248,9 +248,12 @@ class MainPanel(wx.Panel):
         self.UpdateClosingRateText()
 
     def UpdateClosingRateText(self):
-        self.ClosingRate = self.MyCarSpeed - self.TargetCarSpeed
+        self.UpdateClosingRate()
         self.ClosingRateText.SetLabel("The closing rate is: {}".format(self.ClosingRate))
 
+
+    def UpdateClosingRate(self):
+        self.ClosingRate = self.TargetCarSpeed - self.MyCarSpeed
 
     def SetTJAStatus(self, value):
         self.TJAIsActive = value
@@ -262,12 +265,28 @@ class MainPanel(wx.Panel):
         self.UpdateLabels()
 
     def CalculateDistance(self):
-        self.TargetDistance += self.TargetCarSpeed - self.MyCarSpeed
+        self.TargetDistance += self.ClosingRate
 
     def IncrementTime(self):
-        self.CalculateDistance(self)
+        self.CalculateDistance()
 
     def onTimer(self, event):
+        self.CalculateDistance()
+        self.UpdateMyText(0)
+        if self.TJAIsActive:
+            if self.TargetDistance > 25:
+                currspeed = self.MyCarSpeed
+                targetspeed = self.TargetCarSpeed
+
+                # Speed up to close distance
+
+                self.UpdateMyText(1)
+
+
+
+
+
+
         print("hello")
 
 if __name__ == '__main__':
