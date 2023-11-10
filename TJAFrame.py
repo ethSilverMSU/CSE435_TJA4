@@ -39,36 +39,6 @@ class MainFrame(wx.Frame):
         self.Maximize(True)
         self.Center()
 
-    def MenuBar(self):
-        menubar = wx.MenuBar()
-
-        fileMenu = wx.Menu()
-        newitem = wx.MenuItem(fileMenu, wx.ID_NEW, text="New", kind=wx.ITEM_NORMAL)
-        fileMenu.AppendItem(newitem)
-
-        fileMenu.AppendSeparator()
-
-        editMenu = wx.Menu()
-        copyItem = wx.MenuItem(editMenu, 100, text="copy", kind=wx.ITEM_NORMAL)
-
-        editMenu.AppendItem(copyItem)
-        cutItem = wx.MenuItem(editMenu, 101, text="cut", kind=wx.ITEM_NORMAL)
-
-        editMenu.AppendItem(cutItem)
-        pasteItem = wx.MenuItem(editMenu, 102, text="paste", kind=wx.ITEM_NORMAL)
-
-        editMenu.AppendItem(pasteItem)
-
-        quit = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit\tCtrl+Q')
-
-        fileMenu.AppendItem(quit)
-        menubar.Append(fileMenu, '&File')
-
-        self.SetMenuBar(menubar)
-        self.SetSize((350, 250))
-        self.Centre()
-        self.Show(True)
-
     def MenuBarNew(self):
         mMenuBar = wx.MenuBar()
 
@@ -76,16 +46,25 @@ class MainFrame(wx.Frame):
         mQuit = mFile.Append(wx.ID_EXIT, "&Quit")
 
         mChange = wx.Menu()
-        mChange25 = mChange.Append(wx.ID_ANY, "Distance 25")
-        mChange50 = mChange.Append(wx.ID_ANY, "Distance 50")
-        mChange75 = mChange.Append(wx.ID_ANY, "Distance 75")
+        mChange25 = mChange.Append(wx.ID_ANY, "Goal of 25")
+        mChange50 = mChange.Append(wx.ID_ANY, "Goal of 50")
+        mChange75 = mChange.Append(wx.ID_ANY, "Goal of 75")
+
+        mDevs = wx.Menu()
+        mShowDevs = mDevs.Append(wx.ID_ANY, "Show Developers")
+        mShowClient = mDevs.Append(wx.ID_ANY, "Client Information")
+
 
         mMenuBar.Append(mFile, '&File')
-        mMenuBar.Append(mChange, '&Change Distance')
+        mMenuBar.Append(mChange, '&Change Distance Goal')
+        mMenuBar.Append(mDevs, "&Developers")
 
         self.Bind(wx.EVT_MENU, self.OnChange25, mChange25)
         self.Bind(wx.EVT_MENU, self.OnChange50, mChange50)
         self.Bind(wx.EVT_MENU, self.OnChange75, mChange75)
+        self.Bind(wx.EVT_MENU, self.OnDevs, mShowDevs)
+        self.Bind(wx.EVT_MENU, self.OnClient, mShowClient)
+        self.Bind(wx.EVT_MENU, self.OnClose, mQuit)
 
         self.SetMenuBar(mMenuBar)
         self.SetSize((350, 250))
@@ -101,7 +80,14 @@ class MainFrame(wx.Frame):
     def OnChange75(self, event):
         self.GamePanel.OnAdjustDistanceGoal(75)
 
+    def OnDevs(self, event):
+        wx.MessageBox("TJA Developers:\n\nProject Manager: Ryan Le"
+                      "\nFacilitator: Ethan Silver\nWeb Manager: Bryce Cooperkawa"
+                      "\nCustomer Liaison: Matt Zaleski\nAssurance Manager: Alvin Hoang", "Developers")
 
+    def OnClient(self, event):
+        wx.MessageBox("Client:\n\nMr. William Milam"
+                      "\n \n Wmilam Consulting, LLC", "Client")
 
     def OnClose(self, event):
         self.Close()
@@ -121,7 +107,6 @@ class MainPanel(wx.Panel):
         self.MainFont.MakeBold()
         self.OffColor = wx.Colour(255,0,0)
         self.OnColor = wx.Colour(0,255,0)
-
 
 
         self.MyCarSpeed = 25
