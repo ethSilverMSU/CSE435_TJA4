@@ -280,31 +280,19 @@ class MainPanel(wx.Panel):
         self.CalculateDistance()
         self.UpdateMyText(0)
         if self.TJAIsActive:
-            if self.TargetDistance > 65:
-                # Speed up to close distance
-                if self.ClosingRate >= -10:
-                    self.UpdateMyText(1)
-            elif self.TargetDistance < 65 and self.ClosingRate < 0:
+            if self.TargetDistance > (25 + self.MyCarSpeed*2):
+                self.UpdateMyText(1)
+            elif self.TargetDistance <= (25 + self.MyCarSpeed*2) and self.ClosingRate < 0:
                 # Going too fast! Start slowing down
-                if int(self.ClosingRate/3) / 3 != 0:
-                    self.UpdateMyText(int(self.ClosingRate / 3))
-                else:
+                if int(self.ClosingRate/2)/2 < -1:
+                    # Decelerates by fraction of 4 of closing rate
+                    self.UpdateMyText(int(self.ClosingRate/4))
+                elif self.TargetDistance > 25 and self.ClosingRate < -1:
+                    # Decelerates by 1
                     self.UpdateMyText(-1)
-
-            elif self.TargetDistance < 65 and self.ClosingRate >= 0:
-                # Matched speed with target car, now start slowing down to increase distance
-                if self.ClosingRate == 0:
+                elif self.TargetDistance == 25:
+                    # Target Reached
                     self.UpdateMyText(-1)
-
-            elif self.TargetDistance == 65:
-                # Target distance met, match speed with target car
-                self.UpdateMyText(self.ClosingRate)
-
-        print(self.TargetDistance)
-
-
-
-        print("hello")
 
 if __name__ == '__main__':
 
