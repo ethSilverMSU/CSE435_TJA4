@@ -129,10 +129,24 @@ class MainPanel(wx.Panel):
 
 
     def InitStartButton(self):
+        self.DistanceVariableText = wx.StaticText(self, label="Input distance:")
+        self.DistanceVariableText.SetFont(self.MainFont)
+        self.StartButtonSizer.Add(self.DistanceVariableText, 0, wx.ALL | wx.CENTER, 5)
+
+        self.SetDistanceVariable = wx.TextCtrl(self, value="200", style = wx.TE_PROCESS_ENTER)
+        self.StartButtonSizer.Add(self.SetDistanceVariable, 0, wx.ALL | wx.CENTER, 5)
+        self.SetDistanceVariable.Bind(wx.EVT_TEXT_ENTER, self.OnChangeDistance)
+
         self.StartButton = wx.Button(self, label="START SIMULATION", size=(100,50))
         self.StartButton.SetFont(self.MainFont)
         self.StartButtonSizer.Add(self.StartButton, 1, wx.ALL | wx.CENTER, 5)
         self.Bind(wx.EVT_BUTTON, self.OnStart)
+
+        self.MergeButton = wx.Button(self, label="ADD MERGING CAR", size=(100,50))
+        self.MergeButton.SetFont(self.MainFont)
+        self.StartButtonSizer.Add(self.MergeButton, 1, wx.ALL | wx.CENTER, 5)
+        self.Bind(wx.EVT_BUTTON, self.OnMerge)
+
 
     def OnStart(self, event):
         self.isStarted = not self.isStarted
@@ -199,6 +213,12 @@ class MainPanel(wx.Panel):
         self.ButtonArea.Add(self.DecreaseTargetSpeed, 1, wx.ALL | wx.CENTER, 20)
 
 
+    def OnChangeDistance(self, event):
+        if not self.isStarted:
+            dist = int(self.SetDistanceVariable.GetValue())
+            self.TargetDistance = dist
+            self.UpdateDistanceText()
+
 
     def OnDecreaseMySpeed(self, event):
         self.UpdateMyText(-1)
@@ -238,7 +258,7 @@ class MainPanel(wx.Panel):
     def UpdateMyText(self, value):
         self.TimeText.SetLabel("The current time is: {}s".format(self.CurrentTime))
         self.MyCarSpeed += value
-        self.YourSpeed.SetLabel("Your speed is: {}".format(self.MyCarSpeed))
+        self.YourSpeed.SetLabel("Your speed is: {}mph".format(self.MyCarSpeed))
 
         if self.MyCarSpeed > 40 or self.MyCarSpeed < 0:
             self.SetTJAStatus(False)
@@ -246,7 +266,7 @@ class MainPanel(wx.Panel):
 
     def UpdateTargetText(self, value):
         self.TargetCarSpeed += value
-        self.CarSpeed.SetLabel("Tracking car's speed is: {}".format(self.TargetCarSpeed))
+        self.CarSpeed.SetLabel("Tracking car's speed is: {}mph".format(self.TargetCarSpeed))
         self.UpdateClosingRateText()
 
     def UpdateClosingRateText(self):
@@ -293,6 +313,9 @@ class MainPanel(wx.Panel):
                 elif self.TargetDistance == 25:
                     # Target Reached
                     self.UpdateMyText(-1)
+
+    def OnMerge(self, event):
+        pass
 
 if __name__ == '__main__':
 
