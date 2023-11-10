@@ -271,6 +271,7 @@ class MainPanel(wx.Panel):
             # Restart entire game, so everything is reset to its init state.
         #else:
             #self.isStarted = True
+        pass
 
 if __name__ == '__main__':
 
