@@ -123,6 +123,9 @@ class MainPanel(wx.Panel):
 
         self.SetSizer(self.FullPage)
 
+        self.timer = wx.Timer(self)
+        self.Bind(wx.EVT_TIMER, self.onTimer, self.timer)
+
 
     def InitStartButton(self):
         self.StartButton = wx.Button(self, label="START SIMULATION", size=(100,50))
@@ -135,11 +138,10 @@ class MainPanel(wx.Panel):
 
         if self.isStarted == True:
             self.StartButton.SetLabel("STOP SIMULATION")
+            self.timer.Start(1000)
         else:
             self.StartButton.SetLabel("START SIMULATION")
-
-        self.Simulate()
-        print("isStarted State:", self.isStarted)
+            self.timer.Stop()
 
 
     def Stats(self):
@@ -265,13 +267,8 @@ class MainPanel(wx.Panel):
     def IncrementTime(self):
         self.CalculateDistance(self)
 
-    def Simulate(self):
-        #if self.isStarted:
-            #self.isStarted = False
-            # Restart entire game, so everything is reset to its init state.
-        #else:
-            #self.isStarted = True
-        pass
+    def onTimer(self, event):
+        print("hello")
 
 if __name__ == '__main__':
 
