@@ -131,9 +131,15 @@ class MainPanel(wx.Panel):
         self.Bind(wx.EVT_BUTTON, self.OnStart)
 
     def OnStart(self, event):
+        self.isStarted = not self.isStarted
+
+        if self.isStarted == True:
+            self.StartButton.SetLabel("STOP SIMULATION")
+        else:
+            self.StartButton.SetLabel("START SIMULATION")
+
         self.Simulate()
         print("isStarted State:", self.isStarted)
-        pass
 
 
     def Stats(self):
@@ -143,10 +149,10 @@ class MainPanel(wx.Panel):
         """
 
         # Text variables - changed using SetLabel
-        self.YourSpeed = wx.StaticText(self, label="Your speed is: {}".format(self.MyCarSpeed))
-        self.CarSpeed = wx.StaticText(self, label="Tracking car's speed is: {}".format(self.TargetCarSpeed))
-        self.ClosingRateText = wx.StaticText(self, label="The closing rate is: {}".format(self.ClosingRate))
-        self.TimeText = wx.StaticText(self, label="The current time is: {}".format(self.CurrentTime))
+        self.YourSpeed = wx.StaticText(self, label="Your speed is: {}mph".format(self.MyCarSpeed))
+        self.CarSpeed = wx.StaticText(self, label="Tracking car's speed is: {}mph".format(self.TargetCarSpeed))
+        self.ClosingRateText = wx.StaticText(self, label="The closing rate is: {}mph".format(self.ClosingRate))
+        self.TimeText = wx.StaticText(self, label="The current time is: {}mph".format(self.CurrentTime))
 
         # Set our font to text
         self.YourSpeed.SetFont(self.MainFont)
@@ -260,11 +266,11 @@ class MainPanel(wx.Panel):
         self.CalculateDistance(self)
 
     def Simulate(self):
-        if self.isStarted:
-            self.isStarted = False
+        #if self.isStarted:
+            #self.isStarted = False
             # Restart entire game, so everything is reset to its init state.
-        else:
-            self.isStarted = True
+        #else:
+            #self.isStarted = True
 
 if __name__ == '__main__':
 
