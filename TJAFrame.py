@@ -76,6 +76,7 @@ class MainPanel(wx.Panel):
         self.CurrentTime = 0
         self.TJAIsActive = False
         self.isStarted = False
+        self.DistanceGoal = 25
 
         self.GameLayout()
 
@@ -304,17 +305,17 @@ class MainPanel(wx.Panel):
             if self.TargetDistance > (25 + self.MyCarSpeed*2) and self.MyCarSpeed < 40:
                 self.UpdateMyText(1)
                 print("Accelerating option 1", self.TargetDistance)
-            elif self.TargetDistance <= (25 + self.MyCarSpeed*2) and self.ClosingRate != 0:
+            elif self.TargetDistance <= (self.DistanceGoal + self.MyCarSpeed*2) and self.ClosingRate != 0:
                 # Going too fast! Start slowing down
                 if int(self.ClosingRate/2)/2 < -1:
                     # Decelerates by fraction of 4 of closing rate
                     self.UpdateMyText(int(self.ClosingRate/4))
                     print("Decelerating by 4 option 2", self.TargetDistance)
-                elif self.TargetDistance > 25 and self.ClosingRate < -1:
+                elif self.TargetDistance > self.DistanceGoal and self.ClosingRate < -1:
                     # Decelerates by 1
                     self.UpdateMyText(-1)
                     print("Decelerating by 1 option 3", self.TargetDistance)
-                elif self.TargetDistance == 25 and self.ClosingRate == -1:
+                elif self.TargetDistance == self.DistanceGoal and self.ClosingRate == -1:
                     # Target Reached
                     self.UpdateMyText(-1)
                     print("Target Reached", self.TargetDistance)
