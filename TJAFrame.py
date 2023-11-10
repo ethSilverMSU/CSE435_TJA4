@@ -387,12 +387,23 @@ class MainPanel(wx.Panel):
                     # Decelerates by 1
                     self.UpdateMyText(-1)
                     print("Decelerating by 1 option 3", self.TargetDistance)
+                elif self.TargetDistance <= 10 and self.ClosingRate <= 0:
+                    if self.ClosingRate <= -5:
+                        self.UpdateMyText(-5)
+                    else:
+                        self.UpdateMyText(self.ClosingRate)
+                    print("Target vehicle too close, engaging brakes.")
                 elif self.TargetDistance == self.DistanceGoal and self.ClosingRate == -1:
                     # Target Reached
                     self.UpdateMyText(-1)
                     print("Target Reached", self.TargetDistance)
                 else:
                     print("What's going on?")
+
+            elif self.TargetDistance < self.DistanceGoal and self.ClosingRate == 0:
+                self.UpdateMyText(-1)
+                print("Slightly Decelerating to increase distance.")
+
             else:
                 print("Unknown case")
 
