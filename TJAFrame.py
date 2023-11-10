@@ -98,8 +98,8 @@ class MainPanel(wx.Panel):
         pinkcar = wx.Image("resources/pink.png", wx.BITMAP_TYPE_ANY)
 
 
-        self.RedCarDisplay = wx.StaticBitmap(self, wx.ID_ANY, wx.BitmapFromImage(redcar))
-        self.PinkCarDisplay = wx.StaticBitmap(self, wx.ID_ANY, wx.BitmapFromImage(pinkcar))
+        self.RedCarDisplay = wx.StaticBitmap(self, wx.ID_ANY, redcar.ConvertToBitmap())
+        self.PinkCarDisplay = wx.StaticBitmap(self, wx.ID_ANY, pinkcar.ConvertToBitmap())
 
         self.DistanceText = wx.StaticText(self, label="Distance: {}".format(self.TargetDistance))
         self.DistanceText.SetFont(self.MainFont)
