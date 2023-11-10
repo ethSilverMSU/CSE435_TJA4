@@ -140,12 +140,12 @@ class MainPanel(wx.Panel):
         self.StartButton = wx.Button(self, label="START SIMULATION", size=(100,50))
         self.StartButton.SetFont(self.MainFont)
         self.StartButtonSizer.Add(self.StartButton, 1, wx.ALL | wx.CENTER, 5)
-        self.Bind(wx.EVT_BUTTON, self.OnStart)
+        self.StartButton.Bind(wx.EVT_BUTTON, self.OnStart)
 
         self.MergeButton = wx.Button(self, label="ADD MERGING CAR", size=(100,50))
         self.MergeButton.SetFont(self.MainFont)
         self.StartButtonSizer.Add(self.MergeButton, 1, wx.ALL | wx.CENTER, 5)
-        self.Bind(wx.EVT_BUTTON, self.OnMerge)
+        self.MergeButton.Bind(wx.EVT_BUTTON, self.OnMerge)
 
 
     def OnStart(self, event):
@@ -324,7 +324,9 @@ class MainPanel(wx.Panel):
                 print("Unknown case")
 
     def OnMerge(self, event):
-        pass
+        print("MERGING")
+        """
+        """
 
 if __name__ == '__main__':
 
