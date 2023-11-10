@@ -269,6 +269,7 @@ class MainPanel(wx.Panel):
 
     def CalculateDistance(self):
         self.TargetDistance += self.ClosingRate
+        self.UpdateDistanceText()
 
     def IncrementTime(self):
         self.CalculateDistance()
