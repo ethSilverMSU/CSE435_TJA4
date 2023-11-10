@@ -162,7 +162,7 @@ class MainPanel(wx.Panel):
             # Reset everything
             self.MyCarSpeed = 25
             self.TargetCarSpeed = 20
-            self.TargetDistance = 200
+            self.TargetDistance = int(self.SetDistanceVariable.GetValue())
             self.ClosingRate = self.MyCarSpeed - self.TargetCarSpeed
             self.CurrentTime = 0
             self.isStarted = False
