@@ -252,6 +252,8 @@ class MainPanel(wx.Panel):
         self.UpdateClosingRate()
         self.ClosingRateText.SetLabel("The closing rate is: {}".format(self.ClosingRate))
 
+    def UpdateDistanceText(self):
+        self.DistanceText.SetLabel("Distance: {}".format(self.TargetDistance))
 
     def UpdateClosingRate(self):
         self.ClosingRate = self.TargetCarSpeed - self.MyCarSpeed
