@@ -30,6 +30,8 @@ class MainFrame(wx.Frame):
         self.MainSizer = wx.BoxSizer(wx.VERTICAL)
         self.MainSizer.Add(self.GamePanel, 1, wx.EXPAND)
 
+        self.MenuBarNew()
+
         panel.SetSizerAndFit(self.MainSizer)
 
         self.Show()
@@ -38,15 +40,67 @@ class MainFrame(wx.Frame):
         self.Center()
 
     def MenuBar(self):
-        MenuBar = wx.MenuBar
+        menubar = wx.MenuBar()
 
-        FileMenu = wx.Menu()
+        fileMenu = wx.Menu()
+        newitem = wx.MenuItem(fileMenu, wx.ID_NEW, text="New", kind=wx.ITEM_NORMAL)
+        fileMenu.AppendItem(newitem)
 
-        Close = FileMenu.Append(wx.ID_ANY, "Close")
+        fileMenu.AppendSeparator()
 
-        MenuBar.Append(FileMenu, "&File")
+        editMenu = wx.Menu()
+        copyItem = wx.MenuItem(editMenu, 100, text="copy", kind=wx.ITEM_NORMAL)
 
-        self.Bind(wx.EVT_MENU, self.OnClose, Close)
+        editMenu.AppendItem(copyItem)
+        cutItem = wx.MenuItem(editMenu, 101, text="cut", kind=wx.ITEM_NORMAL)
+
+        editMenu.AppendItem(cutItem)
+        pasteItem = wx.MenuItem(editMenu, 102, text="paste", kind=wx.ITEM_NORMAL)
+
+        editMenu.AppendItem(pasteItem)
+
+        quit = wx.MenuItem(fileMenu, wx.ID_EXIT, '&Quit\tCtrl+Q')
+
+        fileMenu.AppendItem(quit)
+        menubar.Append(fileMenu, '&File')
+
+        self.SetMenuBar(menubar)
+        self.SetSize((350, 250))
+        self.Centre()
+        self.Show(True)
+
+    def MenuBarNew(self):
+        mMenuBar = wx.MenuBar()
+
+        mFile = wx.Menu()
+        mQuit = mFile.Append(wx.ID_EXIT, "&Quit")
+
+        mChange = wx.Menu()
+        mChange25 = mChange.Append(wx.ID_ANY, "Distance 25")
+        mChange50 = mChange.Append(wx.ID_ANY, "Distance 50")
+        mChange75 = mChange.Append(wx.ID_ANY, "Distance 75")
+
+        mMenuBar.Append(mFile, '&File')
+        mMenuBar.Append(mChange, '&Change Distance')
+
+        self.Bind(wx.EVT_MENU, self.OnChange25, mChange25)
+        self.Bind(wx.EVT_MENU, self.OnChange50, mChange50)
+        self.Bind(wx.EVT_MENU, self.OnChange75, mChange75)
+
+        self.SetMenuBar(mMenuBar)
+        self.SetSize((350, 250))
+        self.Centre()
+        self.Show(True)
+
+    def OnChange25(self, event):
+        self.GamePanel.OnAdjustDistanceGoal(25)
+
+    def OnChange50(self, event):
+        self.GamePanel.OnAdjustDistanceGoal(50)
+
+    def OnChange75(self, event):
+        self.GamePanel.OnAdjustDistanceGoal(75)
+
 
 
     def OnClose(self, event):
@@ -62,8 +116,9 @@ class MainPanel(wx.Panel):
         wx.Panel.__init__(self, parent)
 
         wid, hei = wx.DisplaySize()
-        self.SetBackgroundColour((100,100,100))
+        self.SetBackgroundColour((128,128,128))
         self.MainFont = wx.Font(pointSize=20, family=wx.FONTFAMILY_ROMAN, style=wx.RAISED_BORDER, weight=90)
+        self.MainFont.MakeBold()
         self.OffColor = wx.Colour(255,0,0)
         self.OnColor = wx.Colour(0,255,0)
 
@@ -232,6 +287,10 @@ class MainPanel(wx.Panel):
             dist = int(self.SetDistanceVariable.GetValue())
             self.TargetDistance = dist
             self.UpdateDistanceText()
+
+    def OnAdjustDistanceGoal(self, value):
+        print(value)
+        self.DistanceGoal = value
 
 
     def OnDecreaseMySpeed(self, event):
