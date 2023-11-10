@@ -159,6 +159,19 @@ class MainPanel(wx.Panel):
             self.StartButton.SetLabel("START SIMULATION")
             self.timer.Stop()
 
+            # Reset everything
+            self.MyCarSpeed = 25
+            self.TargetCarSpeed = 20
+            self.TargetDistance = 200
+            self.ClosingRate = self.MyCarSpeed - self.TargetCarSpeed
+            self.CurrentTime = 0
+            self.isStarted = False
+            self.DistanceGoal = 25
+            self.SetTJAStatus(False)
+            self.UpdateLabels()
+            self.UpdateMyText(0)
+            self.UpdateDistanceText()
+
 
     def Stats(self):
         """
