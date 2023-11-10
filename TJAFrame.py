@@ -131,6 +131,8 @@ class MainPanel(wx.Panel):
         self.Bind(wx.EVT_BUTTON, self.OnStart)
 
     def OnStart(self, event):
+        self.Simulate()
+        print("Pressed")
         pass
 
 
@@ -257,16 +259,10 @@ class MainPanel(wx.Panel):
     def IncrementTime(self):
         self.CalculateDistance(self)
 
-
-    def StartTimer(self):
-        while self.isStarted:
-            time.sleep(1)
-            print("Running")
-
-    def SimulationButton(self):
-        self.StartTimer()
+    def Simulate(self):
         if self.isStarted:
             self.isStarted = False
+            # Restart entire game, so everything is reset to its init state.
         else:
             self.isStarted = True
 
