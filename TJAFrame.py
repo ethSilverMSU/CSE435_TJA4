@@ -132,7 +132,7 @@ class MainPanel(wx.Panel):
 
     def OnStart(self, event):
         self.Simulate()
-        print("Pressed")
+        print("isStarted State:", self.isStarted)
         pass
 
 
