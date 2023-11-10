@@ -281,20 +281,11 @@ class MainPanel(wx.Panel):
         self.UpdateMyText(0)
         if self.TJAIsActive:
             if self.TargetDistance > 25:
-                currspeed = self.MyCarSpeed
-                targetspeed = self.TargetCarSpeed
-
                 # Speed up to close distance
 
                 self.UpdateMyText(1)
-            elif self.TargetDistance <= 25:
-                self.UpdateMyText(-1)
-
-        print(self.TargetDistance)
-
-
-
-        print("hello")
+            else:
+                self.UpdateMyText(self.ClosingRate)
 
 if __name__ == '__main__':
 
