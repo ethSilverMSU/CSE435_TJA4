@@ -287,9 +287,10 @@ class MainPanel(wx.Panel):
                 # Speed up to close distance
 
                 self.UpdateMyText(1)
+            if self.TargetDistance <= 25:
+                self.MyCarSpeed = self.TargetCarSpeed
 
-
-
+        print(self.TargetDistance)
 
 
 
