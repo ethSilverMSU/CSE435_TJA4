@@ -155,7 +155,7 @@ class MainPanel(wx.Panel):
         self.YourSpeed = wx.StaticText(self, label="Your speed is: {}mph".format(self.MyCarSpeed))
         self.CarSpeed = wx.StaticText(self, label="Tracking car's speed is: {}mph".format(self.TargetCarSpeed))
         self.ClosingRateText = wx.StaticText(self, label="The closing rate is: {}mph".format(self.ClosingRate))
-        self.TimeText = wx.StaticText(self, label="The current time is: {}mph".format(self.CurrentTime))
+        self.TimeText = wx.StaticText(self, label="The current time is: {}s".format(self.CurrentTime))
 
         # Set our font to text
         self.YourSpeed.SetFont(self.MainFont)
@@ -236,6 +236,7 @@ class MainPanel(wx.Panel):
         self.Refresh()
 
     def UpdateMyText(self, value):
+        self.TimeText.SetLabel("The current time is: {}s".format(self.CurrentTime))
         self.MyCarSpeed += value
         self.YourSpeed.SetLabel("Your speed is: {}".format(self.MyCarSpeed))
 
@@ -275,6 +276,7 @@ class MainPanel(wx.Panel):
         self.CalculateDistance()
 
     def onTimer(self, event):
+        self.CurrentTime += 1
         self.CalculateDistance()
         self.UpdateMyText(0)
         if self.TJAIsActive:
