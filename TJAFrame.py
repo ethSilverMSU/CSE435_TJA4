@@ -397,9 +397,8 @@ class MainPanel(wx.Panel):
                 print("Unknown case")
 
     def OnMerge(self, event):
-        print("MERGING")
-        """
-        """
+        if self.TargetDistance >= 35:
+            self.TargetDistance = 25
 
 if __name__ == '__main__':
 
