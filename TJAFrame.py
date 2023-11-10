@@ -97,6 +97,7 @@ class MainPanel(wx.Panel):
         redcar = wx.Image("resources/download.png", wx.BITMAP_TYPE_ANY)
         pinkcar = wx.Image("resources/pink.png", wx.BITMAP_TYPE_ANY)
 
+
         self.RedCarDisplay = wx.StaticBitmap(self, wx.ID_ANY, wx.BitmapFromImage(redcar))
         self.PinkCarDisplay = wx.StaticBitmap(self, wx.ID_ANY, wx.BitmapFromImage(pinkcar))
 
