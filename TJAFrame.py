@@ -209,6 +209,7 @@ class MainPanel(wx.Panel):
             self.DistanceGoal = 25
             self.SetTJAStatus(False)
             self.UpdateLabels()
+            self.UpdateTargetText(0)
             self.UpdateMyText(0)
             self.UpdateDistanceText()
 
