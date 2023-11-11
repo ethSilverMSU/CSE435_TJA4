@@ -367,6 +367,13 @@ class MainPanel(wx.Panel):
                 self.UpdateMyText(-1)
                 print("Slightly Decelerating to increase distance.")
 
+            elif self.TargetDistance > self.DistanceGoal and self.ClosingRate == 0:
+                self.UpdateMyText(1)
+                print("Slow, get fast")
+            elif self.TargetDistance > self.DistanceGoal and self.ClosingRate > 0:
+                self.UpdateMyText(1)
+                print("Go back")
+
             elif self.TargetDistance <= (self.DistanceGoal + self.MyCarSpeed*2) and self.ClosingRate != 0:
                 # Going too fast! Start slowing down
                 if int(self.ClosingRate/2)/2 < -1:
@@ -387,13 +394,8 @@ class MainPanel(wx.Panel):
                     # Target Reached
                     self.UpdateMyText(-1)
                     print("Target Reached", self.TargetDistance)
-                else:
-                    print("What's going on?")
-
-
-
-            else:
-                print("Unknown case")
+                elif self.ClosingRate > 0 and self.TargetDistance == self.DistanceGoal:
+                    self.UpdateMyText(1)
 
     def OnMerge(self, event):
         if self.TargetDistance >= 35:
