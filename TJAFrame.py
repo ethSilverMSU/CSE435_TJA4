@@ -367,10 +367,10 @@ class MainPanel(wx.Panel):
                 self.UpdateMyText(-1)
                 print("Slightly Decelerating to increase distance.")
 
-            elif self.TargetDistance > self.DistanceGoal and self.ClosingRate == 0:
+            elif self.TargetDistance > self.DistanceGoal and self.ClosingRate == 0 and self.MyCarSpeed < 40:
                 self.UpdateMyText(1)
                 print("Slow, get fast")
-            elif self.TargetDistance > self.DistanceGoal and self.ClosingRate > 0:
+            elif self.TargetDistance > self.DistanceGoal and self.ClosingRate > 0 and self.MyCarSpeed < 40:
                 self.UpdateMyText(1)
                 print("Go back")
 
