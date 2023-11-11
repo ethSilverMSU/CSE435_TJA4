@@ -359,9 +359,13 @@ class MainPanel(wx.Panel):
         self.CalculateDistance()
         self.UpdateMyText(0)
         if self.TJAIsActive:
-            if self.TargetDistance > (25 + self.MyCarSpeed*2) and self.MyCarSpeed < 40:
+            if self.TargetDistance > (self.DistanceGoal + self.MyCarSpeed*2) and self.MyCarSpeed < 40:
                 self.UpdateMyText(1)
                 print("Accelerating option 1", self.TargetDistance)
+
+            elif self.TargetDistance < self.DistanceGoal and self.ClosingRate <= 0:
+                self.UpdateMyText(self.ClosingRate)
+
             elif self.TargetDistance <= (self.DistanceGoal + self.MyCarSpeed*2) and self.ClosingRate != 0:
                 # Going too fast! Start slowing down
                 if int(self.ClosingRate/2)/2 < -1:
@@ -385,9 +389,6 @@ class MainPanel(wx.Panel):
                 else:
                     print("What's going on?")
 
-            elif self.TargetDistance < self.DistanceGoal and self.ClosingRate == 0:
-                self.UpdateMyText(-1)
-                print("Slightly Decelerating to increase distance.")
 
             else:
                 print("Unknown case")
