@@ -364,7 +364,8 @@ class MainPanel(wx.Panel):
                 print("Accelerating option 1", self.TargetDistance)
 
             elif self.TargetDistance < self.DistanceGoal and self.ClosingRate <= 0:
-                self.UpdateMyText(self.ClosingRate)
+                self.UpdateMyText(-1)
+                print("Slightly Decelerating to increase distance.")
 
             elif self.TargetDistance <= (self.DistanceGoal + self.MyCarSpeed*2) and self.ClosingRate != 0:
                 # Going too fast! Start slowing down
@@ -388,6 +389,7 @@ class MainPanel(wx.Panel):
                     print("Target Reached", self.TargetDistance)
                 else:
                     print("What's going on?")
+
 
 
             else:
